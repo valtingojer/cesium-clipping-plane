@@ -55,7 +55,7 @@ class TinnyApp {
     
     async loadTileset() {
         try {
-            this.tileset = await Cesium.Cesium3DTileset.fromUrl('/public/DigitalHubV2/tileset.json');
+            this.tileset = await Cesium.Cesium3DTileset.fromUrl('./public/DigitalHubV2/tileset.json');
             
             // use transform to move tileset to world origin + 0.25 (0,0,0.25)
             // this is used so we don't have to set it on ion, nor expect it to be present on ifc
