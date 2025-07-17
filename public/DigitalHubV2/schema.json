@@ -1,0 +1,17 @@
+{
+  "id": "",
+  "classes": {
+    "guidFromName": {
+      "name": "guidFromName",
+      "properties": {
+        "name": {
+          "type": "STRING"
+        },
+        "ifcGUID": {
+          "name": "ifcGUID",
+          "type": "STRING"
+        }
+      }
+    }
+  }
+}
