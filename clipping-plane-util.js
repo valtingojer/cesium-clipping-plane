@@ -1,3 +1,7 @@
+/**
+ * Utility class for managing interactive clipping planes in CesiumJS
+ * Provides functionality to create, control, and interact with clipping planes in 6 directions
+ */
 class ClippingPlaneUtil {
     static active = false;
     static exists = false;
@@ -31,6 +35,8 @@ class ClippingPlaneUtil {
     
     /**
      * Creates a clipping plane with the specified direction
+     * @param {Cesium.Viewer} viewer - The Cesium viewer instance
+     * @param {string} direction - The clipping direction from ClippingDirection enum
      */
     static create(viewer, direction) {
         if (window.tilesets && window.tilesets.length > 0) {
@@ -43,7 +49,10 @@ class ClippingPlaneUtil {
     }
     
     /**
-     * Sets the active state and direction
+     * Sets the active state and optionally changes direction
+     * @param {boolean} isActive - Whether to activate or deactivate clipping
+     * @param {Cesium.Viewer} viewer - The Cesium viewer instance
+     * @param {string} [direction] - Optional new clipping direction
      */
     static setActive(isActive, viewer, direction) {
         if (direction !== undefined) {
@@ -53,7 +62,9 @@ class ClippingPlaneUtil {
     }
     
     /**
-     * Changes the current direction while preserving position
+     * Changes the current clipping direction while preserving position
+     * @param {Cesium.Viewer} viewer - The Cesium viewer instance
+     * @param {string} direction - The new clipping direction from ClippingDirection enum
      */
     static changeDirection(viewer, direction) {
         if (!this.currentClippingPlanes || !window.tilesets || !window.tilesets.length) {
@@ -87,6 +98,12 @@ class ClippingPlaneUtil {
         this.setupListeners(viewer);
     }
     
+    /**
+     * Internal method to handle activation/deactivation with cooldown protection
+     * @param {boolean} isActive - Whether to activate or deactivate clipping
+     * @param {Cesium.Viewer} viewer - The Cesium viewer instance
+     * @private
+     */
     static setActiveInternal(isActive, viewer) {
         const currentTime = Date.now();
         const timeSinceLastToggle = currentTime - this.lastToggleTime;
@@ -129,6 +146,12 @@ class ClippingPlaneUtil {
         }
     }
     
+    /**
+     * Creates the actual clipping plane and visual representation
+     * @param {Cesium.Viewer} viewer - The Cesium viewer instance
+     * @param {Cesium.Cesium3DTileset} tileset - The 3D tileset to apply clipping to
+     * @private
+     */
     static createClip(viewer, tileset) {
         const dimensions = this.getTilesetDimensions(tileset);
         const normal = this.getClippingNormal();
@@ -162,6 +185,11 @@ class ClippingPlaneUtil {
         this.setupListeners(viewer);
     }
     
+    /**
+     * Calculates tileset dimensions based on bounding sphere
+     * @param {Cesium.Cesium3DTileset} tileset - The 3D tileset
+     * @returns {Object} Object containing width, height, depth, and radius properties
+     */
     static getTilesetDimensions(tileset) {
         const boundingSphere = tileset.boundingSphere;
         const radius = boundingSphere.radius;
@@ -173,6 +201,10 @@ class ClippingPlaneUtil {
         };
     }
     
+    /**
+     * Gets the normal vector for the actual clipping plane based on current direction
+     * @returns {Cesium.Cartesian3} The normal vector for clipping geometry
+     */
     static getClippingNormal() {
         switch (this.clippingDirection) {
             case this.ClippingDirection.TopToBottom:
@@ -192,6 +224,11 @@ class ClippingPlaneUtil {
         }
     }
 
+    /**
+     * Gets the normal vector for the visual plane representation
+     * Note: This differs from clipping normal to address visual alignment issues
+     * @returns {Cesium.Cartesian3} The normal vector for visual plane display
+     */
     static getVisualPlaneNormal() {
         switch (this.clippingDirection) {
             case this.ClippingDirection.TopToBottom:
@@ -211,6 +248,10 @@ class ClippingPlaneUtil {
         }
     }
     
+    /**
+     * Gets the axis multiplier for mouse movement direction based on clipping direction
+     * @returns {number} Multiplier value (-1 or 1) to control movement direction
+     */
     static getAxisMultiplier() {
         switch (this.clippingDirection) {
             case this.ClippingDirection.TopToBottom:
@@ -230,6 +271,12 @@ class ClippingPlaneUtil {
         }
     }
     
+    /**
+     * Calculates the initial distance for the clipping plane based on tileset dimensions
+     * @param {Object} dimensions - Object containing width, height, depth, and radius
+     * @param {string} direction - The clipping direction
+     * @returns {number} Initial distance value (30% of relevant dimension)
+     */
     static getInitialDistance(dimensions, direction) {
         switch (direction) {
             case this.ClippingDirection.TopToBottom:
@@ -246,6 +293,12 @@ class ClippingPlaneUtil {
         }
     }
     
+    /**
+     * Gets the appropriate 2D dimensions for the visual plane based on clipping direction
+     * @param {Object} dimensions - Object containing width, height, depth, and radius
+     * @param {string} direction - The clipping direction
+     * @returns {Cesium.Cartesian2} 2D dimensions for the visual plane
+     */
     static getPlaneDimensions(dimensions, direction) {
         switch (direction) {
             case this.ClippingDirection.TopToBottom:
@@ -262,16 +315,22 @@ class ClippingPlaneUtil {
         }
     }
     
+    /**
+     * Updates the position and orientation of the visual plane entity
+     * @param {Cesium.Cesium3DTileset} tileset - The 3D tileset for reference positioning
+     */
     static updatePlaneMatrix(tileset) {
         if (!this.planeEntity) return;
         
         const center = tileset.boundingSphere.center;
-        const transform = Cesium.Transforms.eastNorthUpToFixedFrame(center);
-        
         this.planeEntity.position = center;
         this.planeEntity.orientation = Cesium.Quaternion.IDENTITY;
     }
     
+    /**
+     * Sets up mouse event handlers for interactive plane dragging
+     * @param {Cesium.Viewer} viewer - The Cesium viewer instance
+     */
     static setupListeners(viewer) {
         this.removeListeners();
         
@@ -300,6 +359,12 @@ class ClippingPlaneUtil {
         }, Cesium.ScreenSpaceEventType.LEFT_UP);
     }
     
+    /**
+     * Calculates movement modifier based on mouse delta and clipping direction
+     * @param {number} deltaX - Horizontal mouse movement
+     * @param {number} deltaY - Vertical mouse movement
+     * @returns {number} Movement modifier value for plane positioning
+     */
     static getMovementModifier(deltaX, deltaY) {
         const verticalMovement = deltaY;
         const diagonalMovement = deltaX + deltaY;
@@ -323,6 +388,11 @@ class ClippingPlaneUtil {
         }
     }
     
+    /**
+     * Handles mouse movement during plane dragging to update clipping distance
+     * @param {Object} event - Cesium mouse move event with start and end positions
+     * @param {Cesium.Viewer} viewer - The Cesium viewer instance
+     */
     static handleMouseMove(event, viewer) {
         if (!this.currentClippingPlanes || !window.tilesets || !window.tilesets.length) return;
         
@@ -338,6 +408,9 @@ class ClippingPlaneUtil {
         this.currentClippingPlanes.get(0).distance = this.targetDistance;
     }
     
+    /**
+     * Removes all mouse event handlers and cleans up listeners
+     */
     static removeListeners() {
         if (this.moveHandler) {
             this.moveHandler.destroy();
@@ -353,6 +426,9 @@ class ClippingPlaneUtil {
         }
     }
     
+    /**
+     * Completely destroys the clipping plane utility and cleans up all resources
+     */
     static destroy() {
         this.removeListeners();
         this.active = false;
