@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "http-server . -p 8080 -c-1 -o",
     "start": "npm run dev",
-    "build": "test -d dist && rm -rf dist || true && mkdir -p dist && cp -r *.html *.js *.css public node_modules dist/",
-    "build:win": "if exist dist rmdir /s /q dist && mkdir dist && copy *.html dist\\ && copy *.js dist\\ && copy *.css dist\\ && xcopy public dist\\public\\ /E /I && xcopy node_modules dist\\node_modules\\ /E /I"
+    "build": "test -d dist && rm -rf dist || true && mkdir -p dist && cp -r *.html *.js *.css public assets node_modules dist/",
+    "build:win": "if exist dist rmdir /s /q dist && mkdir dist && copy *.html dist\\ && copy *.js dist\\ && copy *.css dist\\ && xcopy public dist\\public\\ /E /I && xcopy assets dist\\assets\\ /E /I && xcopy node_modules dist\\node_modules\\ /E /I"
   },
   "dependencies": {
     "cesium": "^1.124.0"
