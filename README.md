@@ -1,13 +1,13 @@
 # Cesium Clipping Plane Issues Demonstration
 
-[![Live Demo](https://img.shields.io/badge/build-blue)](https://github.com/valtingojer/cesium-clipping-plane/actions/workflows/deploy.yml)
-[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://valtingojer.github.io/cesium-clipping-plane)
+<!-- [![Live Demo](https://img.shields.io/badge/build-blue)](https://github.com/valtingojer/cesium-clipping-plane/actions/workflows/deploy.yml) -->
 
 This project demonstrates **clipping plane issues** when clipping **horizontal and depth directions**. The demo showcases scenarios where the clipping functionality fails to correctly section the 3D models.
 
 ## 🚀 Live Demo
 
-**[View Live Demo](https://valtingojer.github.io/cesium-clipping-plane)**
+[![Live Demo](https://img.shields.io/badge/view-demo-brightgreen)](https://valtingojer.github.io/cesium-clipping-plane)
+
 
 ## 🎯 Purpose
 
@@ -110,6 +110,7 @@ npm run build:win
 
 
 ## 🏗️ Project Structure
+```
 project/
 ├── assets/
 │   ├── DigitalHub_FM-ARC_v2.ifc 
@@ -127,7 +128,7 @@ project/
 │   │   └── tiles/          # Hierarchical tile structure
 │   └── img/                # Reference images
 └── node_modules/           # Dependencies
-
+```
 
 ## 🔧 Technical Details
 
