@@ -27,10 +27,10 @@ The demo uses detailed architectural models from the DigitalHub project. You can
 
 | Model | Description | Download Link |
 |-------|-------------|---------------|
-| **DigitalHub_FM-ARC_v2.gltf** | Architecture Model | [Download](https://valtingojer.github.io/cesium-clipping-plane/assets/DigitalHub_FM-ARC_v2.gltf) |
-| **DigitalHub_FM-HZG_v2.gltf** | Heating Model | [Download](https://valtingojer.github.io/cesium-clipping-plane/assets/DigitalHub_FM-HZG_v2.gltf) |
-| **DigitalHub_FM-LFT_v2.gltf** | Ventilation Model | [Download](https://valtingojer.github.io/cesium-clipping-plane/assets/DigitalHub_FM-LFT_v2.gltf) |
-| **DigitalHub_FM-SAN_v2.gltf** | Sanitary Model | [Download](https://valtingojer.github.io/cesium-clipping-plane/assets/DigitalHub_FM-SAN_v2.gltf) |
+| **DigitalHub_FM-ARC_v2_cesium.gltf** | Architecture Model | [Download](https://valtingojer.github.io/cesium-clipping-plane/assets/DigitalHub_FM-ARC_v2_cesium.gltf) |
+| **DigitalHub_FM-HZG_v2_cesium.gltf** | Heating Model | [Download](https://valtingojer.github.io/cesium-clipping-plane/assets/DigitalHub_FM-HZG_v2_cesium.gltf) |
+| **DigitalHub_FM-LFT_v2_cesium.gltf** | Ventilation Model | [Download](https://valtingojer.github.io/cesium-clipping-plane/assets/DigitalHub_FM-LFT_v2_cesium.gltf) |
+| **DigitalHub_FM-SAN_v2_cesium.gltf** | Sanitary Model | [Download](https://valtingojer.github.io/cesium-clipping-plane/assets/DigitalHub_FM-SAN_v2_cesium.gltf) |
 
 > **Note**: The models are ready to be converted in cesium ion. place downloaded converted models in the `public/` directory to use them in your local setup.
 
