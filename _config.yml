@@ -1,0 +1,14 @@
+title: Cesium Clipping Plane Issues Demo
+description: Demonstration of clipping plane issues in horizontal and depth directions
+url: "https://valtingojer.github.io"
+baseurl: "/cesium-clipping-plane-issues-demo"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# Exclude from processing
+exclude:
+  - node_modules/
+  - .github/
+  - README.md
